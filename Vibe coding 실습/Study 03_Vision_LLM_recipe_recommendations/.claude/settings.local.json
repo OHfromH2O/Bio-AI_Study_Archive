@@ -1,0 +1,25 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(ls:*)",
+      "Bash(find:*)",
+      "Bash(pip show:*)",
+      "Bash(py --version)",
+      "Bash(where python:*)",
+      "Bash(where python3:*)",
+      "Bash(where py:*)",
+      "Bash(\"/c/Users/PC/AppData/Local/Programs/Python/Python312/python.exe\" --version)",
+      "Bash(\"/c/Users/PC/AppData/Local/Programs/Python/Python311/python.exe\" --version)",
+      "Read(//c/Users/PC/AppData/Local/Programs/**)",
+      "Read(//c/Users/PC/anaconda3//**)",
+      "Read(//c/Users/PC/**)",
+      "Bash(\"/c/Users/PC/anaconda3/python.exe\" --version)",
+      "Bash(\"/c/Users/PC/anaconda3/python.exe\" -c \"import requests; print\\(''requests OK''\\)\")",
+      "Bash(\"/c/Users/PC/anaconda3/python.exe\" -c \"import dotenv; print\\('dotenv OK'\\)\" 2>&1)",
+      "Bash(\"/c/Users/PC/anaconda3/python.exe\" -c \"import flask; print\\('flask', flask.__version__\\)\" 2>&1)",
+      "Bash(start \"\" \"http://localhost:5000\")",
+      "Bash(cmd /c \"start http://localhost:5000\")",
+      "Bash(start:*)"
+    ]
+  }
+}

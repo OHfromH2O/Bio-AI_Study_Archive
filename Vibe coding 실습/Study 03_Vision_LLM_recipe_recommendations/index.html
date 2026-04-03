@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>냉장고 재료 인식</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <nav class="app-nav">
+    <a href="/" class="nav-logo">🥦 냉장고 레시피</a>
+    <a href="/step3.html" class="nav-link">👤 내 프로필</a>
+  </nav>
+  <div class="container">
+    <header>
+      <h1>🥦 냉장고 재료 인식</h1>
+      <p class="subtitle">냉장고 사진을 업로드하면 AI가 재료를 자동으로 파악합니다.</p>
+    </header>
+
+    <!-- 업로드 영역 -->
+    <div id="drop-zone" class="drop-zone" role="button" tabindex="0"
+         aria-label="이미지 업로드 영역">
+      <div class="drop-zone__inner" id="drop-content">
+        <span class="drop-icon">📷</span>
+        <p>사진을 드래그하거나 <label for="file-input" class="file-label">파일을 선택</label>하세요</p>
+        <p class="hint">JPEG · PNG · WEBP · 최대 10MB</p>
+      </div>
+      <input type="file" id="file-input" accept="image/jpeg,image/png,image/webp" hidden />
+
+      <!-- 미리보기 -->
+      <div id="preview-wrap" class="preview-wrap hidden">
+        <img id="preview-img" src="" alt="업로드 미리보기" />
+        <button id="btn-change" class="btn-text">📂 다른 사진 선택</button>
+      </div>
+    </div>
+
+    <!-- 분석 버튼 -->
+    <button id="btn-analyze" class="btn-primary" disabled>
+      🔍 재료 분석하기
+    </button>
+
+    <!-- 로딩 -->
+    <div id="loading" class="loading hidden">
+      <div class="spinner"></div>
+      <p>AI가 재료를 분석하는 중입니다…</p>
+    </div>
+
+    <!-- 오류 -->
+    <div id="error-box" class="error-box hidden"></div>
+
+    <!-- 결과 -->
+    <section id="result-section" class="result-section hidden">
+      <h2>인식된 재료</h2>
+      <div id="tag-list" class="tag-list"></div>
+
+      <div class="add-ingredient">
+        <input id="add-input" type="text" placeholder="재료 직접 추가" maxlength="20" />
+        <button id="btn-add" class="btn-secondary">추가</button>
+      </div>
+
+      <button id="btn-next" class="btn-primary btn-next">
+        레시피 추천받기 →
+      </button>
+    </section>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

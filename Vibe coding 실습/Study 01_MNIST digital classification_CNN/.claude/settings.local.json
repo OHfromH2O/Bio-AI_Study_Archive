@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "allow": [
+      "Read(//c/Users/PC/**)",
+      "Bash(/c/Users/PC/anaconda3/python.exe -c \"import PIL; import numpy; import tkinter; print\\('PIL:', PIL.__version__, 'numpy:', numpy.__version__\\)\" 2>&1)",
+      "Bash(/c/Users/PC/anaconda3/Scripts/conda.exe env:*)",
+      "Bash(/c/Users/PC/anaconda3/python.exe -m pip install tensorflow)"
+    ]
+  }
+}

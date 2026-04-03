@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>레시피 추천</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <nav class="app-nav">
+    <a href="/" class="nav-logo">🥦 냉장고 레시피</a>
+    <a href="/step3.html" class="nav-link">👤 내 프로필</a>
+  </nav>
+  <div class="container">
+    <header>
+      <h1>🍳 레시피 추천</h1>
+      <p class="subtitle" id="ingredient-summary">재료를 불러오는 중…</p>
+    </header>
+
+    <!-- 로딩 -->
+    <div id="loading" class="loading">
+      <div class="spinner"></div>
+      <p>AI가 레시피를 생성하는 중입니다…</p>
+    </div>
+
+    <!-- 오류 -->
+    <div id="error-box" class="error-box hidden"></div>
+
+    <!-- 카드 그리드 -->
+    <div id="card-grid" class="card-grid hidden"></div>
+
+    <!-- 하단 버튼 -->
+    <div id="action-bar" class="action-bar hidden">
+      <button id="btn-back" class="btn-secondary">← 재료 수정</button>
+      <button id="btn-retry" class="btn-primary btn-retry">🔄 다시 추천받기</button>
+    </div>
+  </div>
+
+  <!-- 모달 -->
+  <div id="modal-overlay" class="modal-overlay hidden" role="dialog" aria-modal="true">
+    <div class="modal">
+      <button id="modal-close" class="modal-close" aria-label="닫기">×</button>
+      <div id="modal-content"></div>
+    </div>
+  </div>
+
+  <script src="step2.js"></script>
+</body>
+</html>

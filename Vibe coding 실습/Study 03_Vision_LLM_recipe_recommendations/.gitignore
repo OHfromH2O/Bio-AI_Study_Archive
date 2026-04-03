@@ -1,0 +1,6 @@
+# Environment variables (API keys, secrets)
+.env
+
+# OS
+.DS_Store
+Thumbs.db

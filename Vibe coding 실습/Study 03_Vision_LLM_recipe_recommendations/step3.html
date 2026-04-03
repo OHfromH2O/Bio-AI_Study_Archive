@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>내 프로필 &amp; 레시피 보관함</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <nav class="app-nav">
+    <a href="/" class="nav-logo">🥦 냉장고 레시피</a>
+    <a href="/step3.html" class="nav-link nav-active">👤 내 프로필</a>
+  </nav>
+
+  <!-- ── 프로필 생성 화면 (최초 진입 시) ── -->
+  <div id="setup-panel" class="container hidden">
+    <header>
+      <h1>👤 프로필 만들기</h1>
+      <p class="subtitle">닉네임만 입력하면 바로 시작할 수 있어요.</p>
+    </header>
+
+    <div class="card-plain">
+      <!-- 프로필 이미지 -->
+      <div class="avatar-wrap">
+        <img id="setup-avatar-preview" class="avatar" src="" alt="프로필 이미지" />
+        <label class="avatar-edit-btn" for="setup-avatar-input">📷</label>
+        <input type="file" id="setup-avatar-input" accept="image/*" hidden />
+      </div>
+
+      <!-- 닉네임 -->
+      <label class="field-label">닉네임 <span class="required">*</span></label>
+      <input id="setup-nickname" class="field-input" type="text"
+             placeholder="사용할 닉네임 입력" maxlength="20" />
+
+      <!-- 식이 제한 -->
+      <label class="field-label">식이 제한 <span class="hint-label">(선택)</span></label>
+      <div class="diet-options">
+        <label class="diet-chip"><input type="checkbox" value="채식" /> 채식</label>
+        <label class="diet-chip"><input type="checkbox" value="비건" /> 비건</label>
+        <label class="diet-chip"><input type="checkbox" value="글루텐프리" /> 글루텐프리</label>
+        <label class="diet-chip"><input type="checkbox" value="유제품 없음" /> 유제품 없음</label>
+      </div>
+
+      <!-- 기피 재료 -->
+      <label class="field-label">기피 재료 <span class="hint-label">(선택)</span></label>
+      <div class="add-ingredient">
+        <input id="setup-avoid-input" class="field-input" type="text"
+               placeholder="예: 새우, 땅콩" maxlength="20" />
+        <button id="setup-avoid-add" class="btn-secondary">추가</button>
+      </div>
+      <div id="setup-avoid-tags" class="tag-list" style="margin-top:8px"></div>
+
+      <div id="setup-error" class="error-box hidden" style="margin-top:8px"></div>
+
+      <button id="setup-save" class="btn-primary" style="margin-top:16px">
+        프로필 저장하기 →
+      </button>
+    </div>
+  </div>
+
+  <!-- ── 메인 화면 (프로필 있을 때) ── -->
+  <div id="main-panel" class="container hidden">
+
+    <!-- 프로필 카드 -->
+    <section class="card-plain profile-card">
+      <div class="profile-top">
+        <img id="main-avatar" class="avatar" src="" alt="프로필 이미지" />
+        <div class="profile-info">
+          <h2 id="main-nickname" class="profile-name"></h2>
+          <div id="main-diets" class="badge-row"></div>
+          <div id="main-avoids" class="tag-list avoid-tags"></div>
+        </div>
+        <button id="btn-edit-profile" class="btn-text profile-edit-btn">✏️ 편집</button>
+      </div>
+    </section>
+
+    <!-- 프로필 편집 패널 (인라인) -->
+    <section id="edit-panel" class="card-plain hidden">
+      <h3 class="section-title">프로필 편집</h3>
+
+      <div class="avatar-wrap">
+        <img id="edit-avatar-preview" class="avatar" src="" alt="" />
+        <label class="avatar-edit-btn" for="edit-avatar-input">📷</label>
+        <input type="file" id="edit-avatar-input" accept="image/*" hidden />
+      </div>
+
+      <label class="field-label">닉네임</label>
+      <input id="edit-nickname" class="field-input" type="text" maxlength="20" />
+
+      <label class="field-label" style="margin-top:12px">식이 제한</label>
+      <div class="diet-options" id="edit-diet-options">
+        <label class="diet-chip"><input type="checkbox" value="채식" /> 채식</label>
+        <label class="diet-chip"><input type="checkbox" value="비건" /> 비건</label>
+        <label class="diet-chip"><input type="checkbox" value="글루텐프리" /> 글루텐프리</label>
+        <label class="diet-chip"><input type="checkbox" value="유제품 없음" /> 유제품 없음</label>
+      </div>
+
+      <label class="field-label" style="margin-top:12px">기피 재료</label>
+      <div class="add-ingredient">
+        <input id="edit-avoid-input" class="field-input" type="text" maxlength="20" />
+        <button id="edit-avoid-add" class="btn-secondary">추가</button>
+      </div>
+      <div id="edit-avoid-tags" class="tag-list" style="margin-top:8px"></div>
+
+      <div class="edit-actions">
+        <button id="edit-cancel" class="btn-secondary">취소</button>
+        <button id="edit-save" class="btn-primary" style="flex:2">저장</button>
+      </div>
+
+      <hr class="divider" />
+
+      <button id="btn-reset" class="btn-danger">🗑 데이터 초기화</button>
+    </section>
+
+    <!-- 보관함 -->
+    <section class="bookshelf">
+      <div class="bookshelf-header">
+        <h2 class="section-title" id="bookshelf-title">📋 저장된 레시피</h2>
+        <select id="sort-select" class="sort-select">
+          <option value="date">날짜순</option>
+          <option value="name">이름순</option>
+        </select>
+      </div>
+
+      <!-- 용량 경고 -->
+      <div id="storage-warning" class="warning-box hidden">
+        💾 저장 용량이 거의 가득 찼습니다. 오래된 레시피를 삭제해 주세요.
+      </div>
+
+      <!-- 빈 상태 -->
+      <div id="empty-state" class="empty-state hidden">
+        <p>아직 저장된 레시피가 없어요.</p>
+        <a href="/" class="btn-primary" style="display:inline-block;text-decoration:none;text-align:center;padding:12px 24px">
+          + 레시피 만들러 가기
+        </a>
+      </div>
+
+      <!-- 레시피 목록 -->
+      <div id="recipe-list" class="saved-recipe-list"></div>
+    </section>
+
+  </div>
+
+  <!-- ── 상세 모달 ── -->
+  <div id="modal-overlay" class="modal-overlay hidden" role="dialog" aria-modal="true">
+    <div class="modal">
+      <button id="modal-close" class="modal-close" aria-label="닫기">×</button>
+      <div id="modal-body"></div>
+    </div>
+  </div>
+
+  <script src="step3.js"></script>
+</body>
+</html>
