@@ -11,7 +11,7 @@ sklearn `load_wine` 데이터셋(N=178, 13 features, 3 classes)을 사용한 MLP
 | ver0    | ≈ 0.36        | baseline (스케일링 없음, 출력층 Softmax + `CrossEntropyLoss` 중복) |
 | ver1    | ≈ 0.97        | `StandardScaler` 적용 + 출력층 Softmax 제거 |
 
-> ⚠️ 위 수치는 단일 train/val/test 분할(`random_state=2024`)의 결과이며, test set 크기가 약 36 샘플에 불과합니다. 일반화 성능을 단정하기에는 표본이 작으므로 §4의 한계를 참고하십시오.
+> ⚠️ 위 수치는 단일 train/val/test 분할(`random_state=2024`)의 결과이며, test set 크기가 약 36 샘플에 불과하다. 따라서, 일반화 성능을 단정하기에는 표본이 작다는 한계가 있다.
 
 ---
 
@@ -27,7 +27,7 @@ Wine 데이터셋 13개 피처는 단위 및 분포 차이가 큼.
 | `magnesium` | [70, 162] |
 | `nonflavanoid_phenols` | [0.13, 0.66] |
 
-- 스케일이 큰 피처가 첫 선형 계층의 활성값(pre-activation)을 지배 → 손실 표면이 비등방적(anisotropic)으로 형성됨.
+- 스케일이 큰 피처가 첫 선형 계층의 활성값(pre-activation)을 지배함.
 - Adam이 parameter-wise adaptive learning rate를 제공하지만, ReLU 활성과 결합 시 일부 뉴런의 dead/saturation 위험이 증가함.
 
 ### 2.2. Softmax + CrossEntropyLoss 중복 적용
@@ -66,7 +66,8 @@ def forward(self, x):
 
 ## 4. 한계 및 추가 검증 제안
 
-본 결과의 일반화를 주장하기 전에 아래 항목의 보완 검증이 필요함.
+이 단일 검증에서는 향상된 정확도 (97%)와 좋은 재현율(Class 0 = 1.00, Class 2 = 0.92)을 보였다.
+그러나, 본 결과의 일반화를 주장하기에 앞서, 아래 항목들의 보완 검증이 필요함.
 
 1. **단일 split 의존성**: 결과는 단일 `random_state=2024`에 한정됨. K-fold CV(예: stratified 5-fold) 또는 5–10개 seed에 대한 평균 ± std 보고 권장.
 2. **테스트 표본 크기**: N_test ≈ 36이므로 1샘플 오분류 = 약 2.8%p 변동. 정확도의 신뢰 구간이 매우 넓음.
