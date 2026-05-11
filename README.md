@@ -28,7 +28,7 @@ This folder contains assignments and personal implementations of core DL concept
 
 
 ### 3. Big Data Analysis & AI Development (Winspec/NCS)
-**Provider:** Winspec (NCS Certified) | **Period:** [Mar 2026 - Mar 2026]
+**Provider:** Winspec (NCS Certified) | **Period:** [April 2026 - May 2026]
 
 **Focus:** Comprehensive data science pipeline from data acquisition to ML model deployment.
 * **Data Science Stack:** Mastered **Pandas/Numpy** for complex data manipulation (preprocessing, cleaning) and **Matplotlib/Seaborn** for EDA (Exploratory Data Analysis).
@@ -42,9 +42,3 @@ This folder contains assignments and personal implementations of core DL concept
 * **Projects:**
     * Molecular toxicity prediction.
     * Protein binding affinity estimation.
-
-
-### 5. Kaggle Practicals
-**Focus:** Real-world data handling and competition practice.
-* **Data Preprocessing:** Handling missing values, normalization, and augmentation.
-* **Projects:** [List a specific Kaggle project here, e.g., Titanic or Pneumonia Detection]
