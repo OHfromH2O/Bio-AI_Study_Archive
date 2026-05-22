@@ -1,0 +1,79 @@
+<h2 class="sr-only">Training curves comparing CustomCNN (30 epochs) and ResNet50 frozen-fc (5 epochs) on CIFAR-10. CustomCNN shows monotonic train accuracy improvement but noisy validation; ResNet50 shows fast convergence with validation accuracy exceeding training accuracy.</h2>
+
+<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 1rem;">
+  <div style="background: var(--color-background-secondary); border-radius: var(--border-radius-md); padding: 1rem;">
+    <p style="font-size: 13px; color: var(--color-text-secondary); margin: 0 0 4px;">CustomCNN test acc</p>
+    <p style="font-size: 24px; font-weight: 500; margin: 0;">71.55%</p>
+    <p style="font-size: 12px; color: var(--color-text-secondary); margin: 4px 0 0;">30 epochs · from scratch</p>
+  </div>
+  <div style="background: var(--color-background-secondary); border-radius: var(--border-radius-md); padding: 1rem;">
+    <p style="font-size: 13px; color: var(--color-text-secondary); margin: 0 0 4px;">ResNet50 test acc</p>
+    <p style="font-size: 24px; font-weight: 500; margin: 0;">84.80%</p>
+    <p style="font-size: 12px; color: var(--color-text-secondary); margin: 4px 0 0;">5 epochs · ImageNet pretrained</p>
+  </div>
+</div>
+
+<div style="display: flex; flex-wrap: wrap; gap: 16px; margin-bottom: 8px; font-size: 12px; color: var(--color-text-secondary);">
+  <span style="display: flex; align-items: center; gap: 4px;"><span style="width: 10px; height: 10px; border-radius: 2px; background: #378ADD;"></span>CustomCNN train</span>
+  <span style="display: flex; align-items: center; gap: 4px;"><span style="width: 10px; height: 2px; background: #378ADD; border-top: 2px dashed #378ADD;"></span>CustomCNN val</span>
+  <span style="display: flex; align-items: center; gap: 4px;"><span style="width: 10px; height: 10px; border-radius: 2px; background: #1D9E75;"></span>ResNet50 train</span>
+  <span style="display: flex; align-items: center; gap: 4px;"><span style="width: 10px; height: 2px; background: #1D9E75; border-top: 2px dashed #1D9E75;"></span>ResNet50 val</span>
+</div>
+
+<div style="position: relative; width: 100%; height: 320px; margin-bottom: 1rem;">
+  <canvas id="accChart" role="img" aria-label="Accuracy curves over epochs for CustomCNN and ResNet50">CustomCNN final val acc 0.7189; ResNet50 final val acc 0.8491.</canvas>
+</div>
+
+<div style="position: relative; width: 100%; height: 320px;">
+  <canvas id="lossChart" role="img" aria-label="Loss curves over epochs">CustomCNN final val loss 0.85; ResNet50 final val loss 0.45.</canvas>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<script>
+const customTrainAcc = [0.4668,0.5671,0.6025,0.6246,0.6391,0.6535,0.6592,0.6641,0.6746,0.6802,0.6816,0.6879,0.6953,0.6976,0.7005,0.7008,0.7081,0.7074,0.7101,0.7127,0.7157,0.7175,0.7210,0.7198,0.7218,0.7230,0.7235,0.7249,0.7271,0.7281];
+const customValAcc = [0.5778,0.5929,0.5525,0.5645,0.6765,0.6727,0.6615,0.6983,0.7017,0.6366,0.7129,0.6632,0.6306,0.7064,0.7120,0.7204,0.6725,0.7099,0.7224,0.7182,0.7020,0.7153,0.7090,0.7398,0.7514,0.7414,0.7281,0.7406,0.7265,0.7189];
+const customTrainLoss = [1.4865,1.2177,1.1285,1.0687,1.0357,0.9982,0.9766,0.9655,0.9376,0.9216,0.9128,0.8975,0.8835,0.8754,0.8657,0.8597,0.8453,0.8472,0.8389,0.8328,0.8253,0.8214,0.8130,0.8102,0.8073,0.8024,0.7977,0.7917,0.7873,0.7861];
+const customValLoss = [1.2248,1.1711,1.3191,1.2797,0.9283,0.9551,0.9837,0.8859,0.8712,1.0532,0.8414,0.9887,1.1333,0.8570,0.8676,0.8201,0.9710,0.8765,0.8069,0.8220,0.8700,0.8360,0.8543,0.7712,0.7406,0.7644,0.8066,0.7638,0.8037,0.8507];
+const resTrainAcc = [0.6923,0.7703,0.7897,0.7991,0.8056];
+const resValAcc = [0.8082,0.8339,0.8389,0.8411,0.8491];
+const resTrainLoss = [1.0514,0.7085,0.6408,0.6057,0.5821];
+const resValLoss = [0.6280,0.5270,0.4972,0.4782,0.4538];
+const epochs30 = Array.from({length:30},(_,i)=>i+1);
+const epochs5 = Array.from({length:5},(_,i)=>i+1);
+
+new Chart(document.getElementById('accChart'),{
+  type:'line',
+  data:{labels:epochs30, datasets:[
+    {label:'CustomCNN train', data:customTrainAcc, borderColor:'#378ADD', backgroundColor:'#378ADD', pointRadius:0, borderWidth:2, tension:0.2},
+    {label:'CustomCNN val', data:customValAcc, borderColor:'#378ADD', borderDash:[5,3], pointRadius:0, borderWidth:2, tension:0.2},
+    {label:'ResNet50 train', data:resTrainAcc, borderColor:'#1D9E75', backgroundColor:'#1D9E75', pointRadius:3, borderWidth:2, tension:0.2},
+    {label:'ResNet50 val', data:resValAcc, borderColor:'#1D9E75', borderDash:[5,3], pointRadius:3, borderWidth:2, tension:0.2}
+  ]},
+  options:{
+    responsive:true, maintainAspectRatio:false,
+    plugins:{legend:{display:false}, title:{display:true, text:'Accuracy vs epoch', font:{size:14, weight:'500'}, color:'#888780'}},
+    scales:{
+      x:{title:{display:true, text:'Epoch'}, ticks:{maxTicksLimit:10}},
+      y:{title:{display:true, text:'Accuracy'}, min:0.4, max:0.9}
+    }
+  }
+});
+
+new Chart(document.getElementById('lossChart'),{
+  type:'line',
+  data:{labels:epochs30, datasets:[
+    {label:'CustomCNN train', data:customTrainLoss, borderColor:'#378ADD', backgroundColor:'#378ADD', pointRadius:0, borderWidth:2, tension:0.2},
+    {label:'CustomCNN val', data:customValLoss, borderColor:'#378ADD', borderDash:[5,3], pointRadius:0, borderWidth:2, tension:0.2},
+    {label:'ResNet50 train', data:resTrainLoss, borderColor:'#1D9E75', backgroundColor:'#1D9E75', pointRadius:3, borderWidth:2, tension:0.2},
+    {label:'ResNet50 val', data:resValLoss, borderColor:'#1D9E75', borderDash:[5,3], pointRadius:3, borderWidth:2, tension:0.2}
+  ]},
+  options:{
+    responsive:true, maintainAspectRatio:false,
+    plugins:{legend:{display:false}, title:{display:true, text:'Loss vs epoch', font:{size:14, weight:'500'}, color:'#888780'}},
+    scales:{
+      x:{title:{display:true, text:'Epoch'}, ticks:{maxTicksLimit:10}},
+      y:{title:{display:true, text:'Loss'}, min:0.3, max:1.6}
+    }
+  }
+});
+</script>
