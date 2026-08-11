@@ -6,6 +6,13 @@
 * **데이터셋:** COVID-CT-Dataset (A CT Image Dataset about COVID-19)[: 7].
 * **데이터 전처리:** 이미지를 224x224 해상도로 조정 및 정규화(Normalize)하였으며, 학습 데이터에는 RandomResizedCrop 및 RandomHorizontalFlip 기법을 적용하여 데이터 증강(Data Augmentation)을 수행하였습니다[: 7].
 
+### CT 이미지 데이터 예시 (Sample Data)
+| COVID-19 CT | Non-COVID CT |
+| :---: | :---: |
+| <img src="images/covid_sample.png" width="300"/> | <img src="images/non_covid_sample.png" width="300"/> |
+| 실제 코로나19 양성 환자의 CT 흉부 이미지 | 정상(음성) 환자의 CT 흉부 이미지 |
+
+
 ---
 
 ## 2. 모델 아키텍처 및 실습 워크플로우
