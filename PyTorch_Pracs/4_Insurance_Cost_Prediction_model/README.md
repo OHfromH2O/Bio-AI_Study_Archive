@@ -1,4 +1,4 @@
-# 🏥 의료보험료 예측 딥러닝 모델링 (PyTorch Regression)
+# 의료보험료 예측 딥러닝 모델링 (PyTorch Regression)
 
 본 프로젝트는 피보험자의 인적/신체적 조건(나이, 성별, BMI, 자녀 수, 흡연 여부, 거주 지역 등)을 바탕으로 책정될 **의료보험료(Charges)를 예측하는 PyTorch 기반 딥러닝 회귀(Regression) 파이프라인 구축 실습** 폴더입니다. 
 
@@ -10,7 +10,7 @@
 
 <br>
 
-## 📊 모델 성능 발전 요약
+## 모델 성능 발전 요약
 
 | 지표 | Ver 0.0 (Baseline) | Ver 1.0 (Feature + Optuna) | Ver 2.0 (End-Game) | Ver 3.0 (Professional) |
 | :--- | :--- | :--- | :--- | :--- |
@@ -26,7 +26,7 @@
 
 <br>
 
-## 🚀 버전별 상세 진행 내역 및 개선점
+## 버전별 상세 진행 내역 및 개선점
 
 ### 🔹 Ver 0.0 : Baseline Model
 기본적인 전처리와 단순한 MLP(Multi-Layer Perceptron) 신경망을 이용해 구축한 베이스라인 회귀 모델입니다.
@@ -64,7 +64,7 @@
 
 <br>
 
-## 🔍 SHAP 분석을 통한 모델 기제 해석 (Interpretability)
+## SHAP 분석을 통한 모델 기제 해석 (Interpretability)
 Ver 3.0의 SHAP Summary Plot을 통해, 딥러닝 모델이 의료보험 도메인의 핵심 규칙을 현실과 완벽하게 일치하게 학습했음을 확인했습니다.
 
 * **나이 (Age): 선형적 비용 상승** * 연령이 높아질수록 질병 발생 확률이 커진다는 현실을 반영하여, 나이가 많을수록 SHAP Value가 꾸준히 양(+)의 방향으로 이동하는 연속적 우상향 패턴을 보입니다.
@@ -81,7 +81,7 @@ Ver 3.0의 SHAP Summary Plot을 통해, 딥러닝 모델이 의료보험 도메�
 
 <br>
 
-## 🛠 Tech Stack
+## Tech Stack
 * **Language:** Python
 * **Deep Learning Framework:** PyTorch
 * **AutoML & XAI:** Optuna, SHAP
