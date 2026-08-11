@@ -29,13 +29,20 @@
 * **조기 종료(Early Stopping):** 검증 손실(Validation Loss)을 기준으로 모델 학습을 조기 종료하는 로직을 적용하였습니다[: 6].
 
 ### Step 3. Feature Fusion Network (`1_3_Covid19_CT_FeatureFusion_Final_Pipeline.ipynb`)
-* **특징 융합(Feature Fusion):** 대규모 데이터로 사전 학습된 `ResNet50` 모델과 맞춤형 특징 추출기(`CustomFeatureExtractor`)를 결합한 `CombinedCovidNet`을 설계하였습니다[: 7].
-* **분류기 구조:** ResNet50의 특징 2048개와 맞춤형 모델의 특징 128개를 병합(`torch.cat`)하여 총 2176개의 특징 벡터를 구성한 뒤 최종 분류기(`Linear`)에 입력되도록 처리하였습니다[: 7].
-* **학습 및 튜닝:** `Optuna`의 `MedianPruner`를 활용해 10회의 모의 탐색을 진행하여 하이퍼파라미터를 찾고, 이를 바탕으로 최대 30 에포크(Patience 10) 동안 최종 학습을 수행하였습니다[: 7].
+* **특징 융합(Feature Fusion):** 대규모 데이터로 사전 학습된 `ResNet50` 모델과 맞춤형 특징 추출기(`CustomFeatureExtractor`)를 결합한 `CombinedCovidNet`을 설계하였습니다.
+* **분류기 구조:** ResNet50의 특징 2048개와 맞춤형 모델의 특징 128개를 병합(`torch.cat`)하여 총 2176개의 특징 벡터를 구성한 뒤 최종 분류기(`Linear`)에 입력되도록 처리하였습니다.
+* **학습 및 튜닝:** `Optuna`의 `MedianPruner`를 활용해 10회의 모의 탐색을 진행하여 하이퍼파라미터를 찾고, 이를 바탕으로 최대 30 에포크(Patience 10) 동안 최종 학습을 수행하였습니다.
 
 ---
 
 ## 3. 평가 결과 및 분석 (Evaluation)
+
+### 평가 결과 시각화 (Result Visualization)
+
+| ROC Curve | Confusion Matrix |
+| :---: | :---: |
+| <img src="images/roc_curve.png" width="400"/> | <img src="images/confusion_matrix.png" width="400"/> |
+| **ROC AUC = 0.8874**<br>위양성률(FPR) 대비 진양성률(TPR) 성능 곡선 | **정확도 80.3% / 민감도 81.9%**<br>모델의 실제 예측과 정답 대조 히트맵 |
 
 ### 3.1. 평가지표 (Metrics)
 최종 모델(`CombinedCovidNet`)을 테스트 데이터셋으로 평가한 결과는 다음과 같습니다[: 7].
@@ -50,6 +57,6 @@
 * **위음성 (FN, False Negative):** 19건 (코로나 환자를 정상으로 오진)[: 7].
 
 ### 3.3. 한계점 및 향후 개선 방향
-* 융합 모델 적용을 통해 두 클래스에 대한 예측 균형이 안정화되었습니다[: 7].
-* 하지만 의료 진단 데이터의 특성상 위음성(False Negative, 19건)은 질병을 놓치는 치명적인 지표입니다[: 7].
-* 이를 개선하기 위해 모델의 분류 임계값(Threshold)을 현행 50%에서 30%~40% 수준으로 하향 조정하여, 민감도를 더욱 높이고 위음성 비율을 낮추는 후처리 기법 적용이 요구됩니다[: 7].
+* 융합 모델 적용을 통해 두 클래스에 대한 예측 균형이 안정화되었습니다.
+* 하지만 의료 진단 데이터의 특성상 위음성(False Negative, 19건)은 질병을 놓치는 치명적인 지표입니다.
+* 이를 개선하기 위해 모델의 분류 임계값(Threshold)을 현행 50%에서 30%~40% 수준으로 하향 조정하여, 민감도를 더욱 높이고 위음성 비율을 낮추는 후처리 기법 적용이 요구됩니다.
