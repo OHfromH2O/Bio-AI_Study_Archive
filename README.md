@@ -61,13 +61,32 @@ that nobody goes looking for files that are not here.
 
 ## A note on language
 
-The README files inside each project folder are written in Korean, because I
-wrote them while studying. This top-level file is in English. If you want the
-detail behind any number in the table above, the project folder has it.
+| where | language |
+|---|---|
+| this file | English |
+| `PyTorch_Pracs/*/README.md` | Korean, with code, tables and plots in English |
+| `TensorFlow_Pracs/`, `Vibe coding_Pracs/` | Korean notes, English code |
+
+I wrote the project folders in Korean while studying and have kept them that
+way. They are still worth opening without Korean: the metrics, tables,
+confusion matrices and training curves carry the result, and the notebooks
+are code.
+
+My two applied repositories below follow a different rule. Their main README
+is Korean, and each carries an English summary of the same length as this
+page, so an English reader gets the hypotheses, the numbers and the
+limitations without the full document.
 
 ## Related repositories
 
 Applied work that grew out of this archive:
 
-- [vhh-mpnn-selfconsistency](https://github.com/OHfromH2O/vhh-mpnn-selfconsistency) — whether ProteinMPNN redesigns fold back to the original structure
-- [pdl1-rfdiffusion-hotspots](https://github.com/OHfromH2O/pdl1-rfdiffusion-hotspots) — whether RFdiffusion hotspot specification changes binder design outcomes
+- **[vhh-mpnn-selfconsistency](https://github.com/OHfromH2O/vhh-mpnn-selfconsistency)**
+  — do ProteinMPNN redesigns fold back to the backbone they came from?
+  ([English summary](https://github.com/OHfromH2O/vhh-mpnn-selfconsistency/blob/main/README.en.md))
+- **[pdl1-rfdiffusion-hotspots](https://github.com/OHfromH2O/pdl1-rfdiffusion-hotspots)**
+  — does naming the hotspots change what RFdiffusion produces?
+  ([English summary](https://github.com/OHfromH2O/pdl1-rfdiffusion-hotspots/blob/main/README.en.md))
+
+Both were run against controls and against criteria fixed before the work
+started, and both report the axes where the result was negative.
