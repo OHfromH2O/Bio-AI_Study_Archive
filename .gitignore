@@ -1,0 +1,25 @@
+# --- Local tool settings ---------------------------------------------
+# These record which commands an AI coding assistant was allowed to run on
+# my machine. They contain local absolute paths and are personal to this
+# computer, so they do not belong in a public repository.
+.claude/
+.vscode/
+.idea/
+
+# --- Secrets ----------------------------------------------------------
+# .env.example is tracked on purpose; the real .env is not.
+.env
+*.key
+
+# --- Python -----------------------------------------------------------
+__pycache__/
+*.py[cod]
+.ipynb_checkpoints/
+.venv/
+venv/
+env/
+
+# --- OS ---------------------------------------------------------------
+.DS_Store
+Thumbs.db
+desktop.ini
